@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<!--<nav class="navbar navbar-expand-lg navbar-light bg-danger">-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="banner">
+                    <h1 class="p-4">To<span>Do</span></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--</nav>-->
+
+
+
+<div class="container">
+    <div class="row m-5">
+        <div class="col-md-6">
+            <form method="POST" class="p-3 shadow">
+                {% csrf_token %}
+                <div class="form-group">
+                <input type="text" name="task" class="m-2 p-2 form-control" placeholder="Task Name">
+            </div>
+            <div class="form-group">
+                <input type="text" name="priority" class="m-2 p-2 form-control" placeholder="Enter your Priority">
+            </div>
+            <div class="form-group">
+                <input type="date" name="date" class="m-2 p-2 form-control" placeholder="Enter your date">
+            </div>
+                <button class="m-2 p-2 btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h3 class="m-3 task-head">TASKS COMPLETED</h3>
+            {% for i in tasks %}
+                <div class="shadow m-3 card">
+                    <div class="card-body">
+                        <h2 class="card-title text-danger">{{i.name}}</h2>
+                        <p><b>{{i.priority}}</b></p>
+                        <p><b>{{i.date}}</b></p>
+                        <div class="align-content-center" style="margin:0%">
+                            <a class="btn btn-success" style="width:40%;" href="{% url 'update' i.id%}">UPDATE</a>
+                            <a class="btn btn-danger" style="width:40%;" href="{% url 'delete' i.id%}">REMOVE</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
